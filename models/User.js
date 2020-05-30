@@ -1,4 +1,4 @@
-const { Model, Datatypes } = require('sequelize');
+const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
 // create user model
@@ -10,7 +10,7 @@ User.init(
     // define id column
     id: {
       // use special Sequelize Datatypes object provie what type of data it is
-      type: Datatypes.INTEGER,
+      type: DataTypes.INTEGER,
       // thbis is equivalent of sqls not null option
       allowNull: false,
       // instruct that this is primary key
@@ -20,12 +20,12 @@ User.init(
     },
     // define username column
     username: {
-      type: Datatypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
     // define email column
     email: {
-      type: Datatypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       // don't allow duplicate emails
       unique: true,
@@ -36,7 +36,7 @@ User.init(
     },
     // define password column
     password: {
-      type: Datatypes.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         // means password must be at least four char long
