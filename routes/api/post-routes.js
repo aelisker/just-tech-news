@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { Post, User } = require('../../models');
+const { Post, User, Vote } = require('../../models');
+const sequelize = require('../../config/connection');
 
 // get all posts
 router.get('/', (req, res) => {
@@ -86,6 +87,47 @@ router.put('/:id', (req, res) => {
       res.status(500).json(err);
     });
 });
+
+router.put('/upvote', (req, res) => {
+  Vote.create({
+    user_id: req.body.user_id,
+    post_id: req.body.post_id
+  })
+    .then(dbPostData => res.json(dbPostData))
+    .catch(err => res.json(err));
+});
+
+// router.put('/upvote', (req, res) => {
+//   Vote.create({
+//     user_id: req.body.user_id,
+//     post_id: req.body.post_id
+//   })
+//     .then(() => {
+//       //find the post we just voted on
+//       return Post.findOne({
+//         where: {
+//           id: req.body.post_id
+//         },
+//         attributes: [
+//           'id',
+//           'post_url',
+//           'title',
+//           'created_at',
+//           // use raw mysql aggregate function query to get a count of how many votes the post has and return under name vote_count
+//           [
+//             sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'),
+//             'vote_count'
+//           ]
+//         ]
+//       })
+//       .then(dbPostData => res.json(dbPostData))
+//       .catch(err => {
+//         console.log(err);
+//         res.status(400).json(err);
+//       });
+//     })
+//     .catch(err => res.json(err));
+// });
 
 router.delete('/:id', (req, res) => {
   Post.destroy({

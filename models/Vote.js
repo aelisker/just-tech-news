@@ -6,9 +6,9 @@ class Vote extends Model {}
 Vote.init(
   {
     id: {
-      type:DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement:true,
+      autoIncrement: true
     },
     user_id: {
       type: DataTypes.INTEGER,
